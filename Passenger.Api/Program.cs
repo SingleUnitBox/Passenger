@@ -1,4 +1,6 @@
+using AutoMapper;
 using Passenger.Core.Repositories;
+using Passenger.Infrastructure.Mappers;
 using Passenger.Infrastructure.Repositories;
 using Passenger.Infrastructure.Services;
 
@@ -12,6 +14,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUserRepository, InMemoryUserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddSingleton(AutomapperConfig.Initialize());
 
 var app = builder.Build();
 

@@ -9,9 +9,9 @@ namespace Passenger.Core.Repositories
 {
     public interface IDriverRepository
     {
-        Driver Get(Guid userId);
-        void Add(Driver driver);
-        void Update(Driver driver);
-        IEnumerable<Driver> GetAll();
+        Task<Driver> GetAsync(Guid userId);
+        Task AddAsync(Driver driver);
+        Task UpdateAsync(Driver driver);
+        Task<IEnumerable<Driver>> GetAllAsync();
     }
 }

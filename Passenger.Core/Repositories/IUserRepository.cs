@@ -9,11 +9,11 @@ namespace Passenger.Core.Repositories
 {
     public interface IUserRepository
     {
-        User Get(string email);
-        User Get(Guid id);
-        void Add(User user);
-        void Remove(Guid id);
-        void Update(User user);
-        IEnumerable<User> GetAll();
+        Task<User> GetAsync(string email);
+        Task<User> GetAsync(Guid id);
+        Task AddAsync(User user);
+        Task RemoveAsync(Guid id);
+        Task UpdateAsync(User user);
+        Task<IEnumerable<User>> GetAllAsync();
     }
 }

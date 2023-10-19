@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Passenger.Core.Domain
 {
+    //value object, doesnt have identity, shouldnt be created from new() - kewword but through method like Create
     public class Node
     {
         public string Address { get; protected set; }
