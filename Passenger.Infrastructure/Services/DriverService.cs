@@ -1,4 +1,5 @@
-﻿using Passenger.Core.Repositories;
+﻿using Passenger.Core.Domain;
+using Passenger.Core.Repositories;
 using Passenger.Infrastructure.DTO;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,19 @@ namespace Passenger.Infrastructure.Services
                 UserId = driver.UserId,
             };
             return driverDto;
+        }
+
+        public async Task CreateAsync(Guid userId, string brand, string name, int seats)
+        {
+            var user = (await _driverRepository.GetAllAsync())
+                .SingleOrDefault(x => x.UserId == userId);
+            if (user != null)
+            {
+                throw new Exception($"Driver with Id {userId} already exists.");
+            }
+            Vehicle vehicle = Vehicle.Create(brand, name, seats);
+            var driver = new Driver(userId, vehicle);
+            await _driverRepository.AddAsync(driver);
         }
     }
 }

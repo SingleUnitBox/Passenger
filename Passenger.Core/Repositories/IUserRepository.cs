@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Passenger.Core.Repositories
 {
-    public interface IUserRepository
+    public interface IUserRepository : IRepository
     {
         Task<User> GetAsync(string email);
         Task<User> GetAsync(Guid id);

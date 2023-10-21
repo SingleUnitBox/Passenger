@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace Passenger.Infrastructure.Services
 {
-    public interface IDriverService
+    public interface IDriverService : IService
     {
         Task<DriverDto> GetAsync(Guid userId);
+        Task CreateAsync(Guid userId, string brand, string name, int seats);
     }
 }

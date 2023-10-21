@@ -22,10 +22,10 @@ namespace Passenger.Infrastructure.IoC.Modules
                 .AsSelf()
                 .AsImplementedInterfaces();
 
-            var mapperConfiguration = AutomapperConfig.Initialize();
+            //var mapperConfiguration = AutomapperConfig.Initialize();
 
-            builder.RegisterInstance(mapperConfiguration)
-                .SingleInstance();
+            //builder.RegisterInstance(mapperConfiguration)
+            //    .SingleInstance();
 
             //builder.RegisterType<CommandDispatcher>()
             //    .As<ICommandDispatcher>()
