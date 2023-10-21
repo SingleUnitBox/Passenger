@@ -16,9 +16,9 @@ namespace Passenger.Infrastructure.Services
         {
             _driverRepository = driverRepository;
         }
-        public DriverDto Get(Guid userId)
+        public async Task<DriverDto> GetAsync(Guid userId)
         {
-            var driver = _driverRepository.Get(userId);
+            var driver = await _driverRepository.GetAsync(userId);
             DriverDto driverDto = new()
             {
                 UserId = driver.UserId,
