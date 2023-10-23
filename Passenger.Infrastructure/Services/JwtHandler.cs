@@ -1,4 +1,5 @@
-﻿using Passenger.Infrastructure.DTO;
+﻿using Microsoft.IdentityModel.Tokens;
+using Passenger.Infrastructure.DTO;
 using Passenger.Infrastructure.Extensions;
 using Passenger.Infrastructure.Settings;
 using System;
@@ -29,7 +30,25 @@ namespace Passenger.Infrastructure.Services
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, now.ToTimestamp().ToString(), ClaimValueTypes.Integer64)
             };
-            var 
+            var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key)),
+                SecurityAlgorithms.HmacSha256);
+
+            var expires = now.AddMinutes(10);//_jwtSetting.ExpiryMinutes
+
+            var jwt = new JwtSecurityToken(
+                issuer: _jwtSettings.Issuer,
+                claims: claims,
+                notBefore: now,
+                expires: expires,
+                signingCredentials: signingCredentials
+                );
+            var token = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+            return new JwtDto
+            {
+                Token = token,
+                Expiry = expires.ToTimestamp(),
+            };
         }
     }
 }
