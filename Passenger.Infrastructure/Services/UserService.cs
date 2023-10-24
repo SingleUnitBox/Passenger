@@ -15,14 +15,17 @@ namespace Passenger.Infrastructure.Services
         private readonly IUserRepository _userRepository;
         private readonly IEncrypter _encrypter;
         private readonly IMapper _mapper;
+        private readonly IJwtHandler _jwtHandler;
 
         public UserService(IUserRepository userRepository,
             IEncrypter encrypter,
-            IMapper mapper)
+            IMapper mapper,
+            IJwtHandler jwtHandler)
         {
             _userRepository = userRepository;
             _encrypter = encrypter;
             _mapper = mapper;
+            _jwtHandler = jwtHandler;
         }
 
         public async Task<UserDto> GetAsync(string email)
@@ -38,11 +41,11 @@ namespace Passenger.Infrastructure.Services
             {
                 throw new Exception("Invalid credentials.");
             }
-            var salt = _encrypter.GetSalt(password);
-            var hash = _encrypter.GetHash(password, salt);
+            var hash = _encrypter.GetHash(password, user.Salt);
             if (user.Password == hash)
             {
-                return;
+                var role = 
+                _jwtHandler.CreateToken(email, role);
             }
             throw new Exception("Invalid credentials.");
         }

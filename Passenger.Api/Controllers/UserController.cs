@@ -35,5 +35,11 @@ namespace Passenger.Api.Controllers
 
             return Created($"users/{command.Email}", new object());
         }
+        [HttpPost]
+        [Route("Login")]
+        public async Task<IActionResult> LoginAsync([FromBody] LoginUser command)
+        {
+            await _commandDispatcher.DispatchAsync(command);
+        }
     }
 }

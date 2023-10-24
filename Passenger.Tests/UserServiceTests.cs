@@ -14,8 +14,9 @@ namespace Passenger.Tests
         {
             var mockUserRepository = new Mock<IUserRepository>();
             var mockMapper = new Mock<IMapper>();
+            var mockEncrypter = new Mock<IEncrypter>();
 
-            var userService = new UserService(mockUserRepository.Object, mockMapper.Object);
+            var userService = new UserService(mockUserRepository.Object, mockEncrypter.Object, mockMapper.Object);
 
             await userService.RegisterAsync("user@gmail.com", "user", "password");
 

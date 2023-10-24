@@ -40,6 +40,7 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["jwt:key"]))
     };
 });
+builder.Services.AddAuthorization(x => x.AddPolicy("admin", p => p.RequireRole("admin")));
 //builder.Services.AddScoped<IUserRepository, InMemoryUserRepository>();
 //builder.Services.AddScoped<IUserService, UserService>();
 //builder.Services.AddSingleton(AutomapperConfig.Initialize());

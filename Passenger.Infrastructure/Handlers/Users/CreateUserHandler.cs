@@ -21,5 +21,6 @@ namespace Passenger.Infrastructure.Handlers.Users
         {
             await _userService.RegisterAsync(command.Email, command.Username, command.Password);
         }
+
     }
 }

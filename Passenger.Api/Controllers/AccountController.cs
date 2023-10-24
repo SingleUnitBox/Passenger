@@ -29,13 +29,13 @@ namespace Passenger.Api.Controllers
         [Route("token")]
         public IActionResult GetToken()
         {
-            var token = _jwtHandler.CreateToken("user@gmail.com", "user");
+            var token = _jwtHandler.CreateToken("user@gmail.com", "admin");
 
             return Json(token);
         }
         [HttpGet]
         [Route("auth")]
-        [Authorize]
+        [Authorize(Policy = "admin")]
         public IActionResult GetAuth()
         {
             return Ok("auth");
