@@ -20,7 +20,6 @@ IConfiguration configuration = new ConfigurationBuilder()
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -41,16 +40,34 @@ builder.Services.AddAuthentication(options =>
     };
 });
 builder.Services.AddAuthorization(x => x.AddPolicy("admin", p => p.RequireRole("admin")));
+builder.Services.AddMemoryCache();
 //builder.Services.AddScoped<IUserRepository, InMemoryUserRepository>();
 //builder.Services.AddScoped<IUserService, UserService>();
 //builder.Services.AddSingleton(AutomapperConfig.Initialize());
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
-
 builder.Host.ConfigureContainer<ContainerBuilder>(
     builder => builder.RegisterModule(new ContainerModule(configuration)));
 
+builder.Host.ConfigureLogging(logging =>
+{
+    logging.ClearProviders();
+    logging.AddConsole();
+});
+
+
+
 var app = builder.Build();
+
+var generalSettings = builder.Configuration.GetSection("general").Get<GeneralSettings>();
+{
+    if (generalSettings.SeedData)
+    {
+        var dataInitializer = app.Services.GetService<DataInitializer>();
+        dataInitializer.SeedAsync();
+    }
+}
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

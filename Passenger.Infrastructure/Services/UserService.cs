@@ -15,17 +15,19 @@ namespace Passenger.Infrastructure.Services
         private readonly IUserRepository _userRepository;
         private readonly IEncrypter _encrypter;
         private readonly IMapper _mapper;
-        private readonly IJwtHandler _jwtHandler;
 
         public UserService(IUserRepository userRepository,
             IEncrypter encrypter,
-            IMapper mapper,
-            IJwtHandler jwtHandler)
+            IMapper mapper)
         {
             _userRepository = userRepository;
             _encrypter = encrypter;
             _mapper = mapper;
-            _jwtHandler = jwtHandler;
+        }
+        public async Task<IEnumerable<UserDto>> GetAllAsync()
+        {
+            var users = await _userRepository.GetAllAsync();
+            return _mapper.Map<IEnumerable<User>, IEnumerable<UserDto>>(users);
         }
 
         public async Task<UserDto> GetAsync(string email)
@@ -44,13 +46,12 @@ namespace Passenger.Infrastructure.Services
             var hash = _encrypter.GetHash(password, user.Salt);
             if (user.Password == hash)
             {
-                var role = 
-                _jwtHandler.CreateToken(email, role);
+                return;
             }
             throw new Exception("Invalid credentials.");
         }
 
-        public async Task RegisterAsync(string email, string username, string password)
+        public async Task RegisterAsync(Guid userId, string email, string username, string password, string role)
         {
             var user = await _userRepository.GetAsync(email);
             if (user != null)
@@ -60,7 +61,7 @@ namespace Passenger.Infrastructure.Services
 
             var salt = _encrypter.GetSalt(password);
             var hash = _encrypter.GetHash(password, salt);
-            user = new User(email, username, hash, salt);
+            user = new User(userId, email, username, password, salt, role);
             await _userRepository.AddAsync(user);
         }
     }

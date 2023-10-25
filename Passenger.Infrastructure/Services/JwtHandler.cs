@@ -15,7 +15,10 @@ namespace Passenger.Infrastructure.Services
     public class JwtHandler : IJwtHandler
     {
         private readonly JwtSettings _jwtSettings;
-
+        protected JwtHandler()
+        {
+            
+        }
         public JwtHandler(JwtSettings jwtSettings)
         {
             _jwtSettings = jwtSettings;

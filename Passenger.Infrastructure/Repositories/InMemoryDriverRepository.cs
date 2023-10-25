@@ -16,7 +16,6 @@ namespace Passenger.Infrastructure.Repositories
             _drivers.Add(driver);
             await Task.CompletedTask;
         }
-
         public async Task<Driver> GetAsync(Guid userId)
             => await Task.FromResult(_drivers.Single(x => x.UserId == userId));
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Passenger.Infrastructure.Commands;
 using Passenger.Infrastructure.Commands.Users;
+using Passenger.Infrastructure.Extensions;
 using Passenger.Infrastructure.Services;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace Passenger.Infrastructure.Handlers.Users
             await _userService.LoginAsync(command.Email, command.Password);
             var user = await _userService.GetAsync(command.Email);
             var jwt = _jwtHandler.CreateToken(command.Email, user.Role);
-            _memoryCache.Set();
+            _memoryCache.SetJwt(command.TokenId, jwt);
         }
     }
 }
