@@ -16,6 +16,12 @@ namespace Passenger.Api.Controllers
         {
             _userService = userService;
         }
+        [HttpGet]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            var users = await _userService.GetAllAsync();
+            return Json(users);
+        }
 
         [HttpGet("{email}")]
         public async Task<IActionResult> GetAsync(string email)
@@ -25,7 +31,7 @@ namespace Passenger.Api.Controllers
             {
                 return NotFound();
             }
-            return Ok(user);
+            return Json(user);
         }
 
         [HttpPost("")]
@@ -34,12 +40,6 @@ namespace Passenger.Api.Controllers
             await _commandDispatcher.DispatchAsync(command);
 
             return Created($"users/{command.Email}", new object());
-        }
-        [HttpPost]
-        [Route("Login")]
-        public async Task<IActionResult> LoginAsync([FromBody] LoginUser command)
-        {
-            await _commandDispatcher.DispatchAsync(command);
         }
     }
 }

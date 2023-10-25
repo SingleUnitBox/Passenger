@@ -25,14 +25,14 @@ namespace Passenger.Api.Controllers
 
             return NoContent();
         }
-        [HttpGet]
-        [Route("token")]
-        public IActionResult GetToken()
-        {
-            var token = _jwtHandler.CreateToken("user@gmail.com", "admin");
+        //[HttpGet]
+        //[Route("token")]
+        //public IActionResult GetToken()
+        //{
+        //    var token = _jwtHandler.CreateToken("user@gmail.com", "admin");
 
-            return Json(token);
-        }
+        //    return Json(token);
+        //}
         [HttpGet]
         [Route("auth")]
         [Authorize(Policy = "admin")]

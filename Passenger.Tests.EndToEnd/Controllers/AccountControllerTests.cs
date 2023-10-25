@@ -19,6 +19,15 @@ namespace Passenger.Tests.EndToEnd.Controllers
     public class AccountControllerTests : ControllerTestsBase
     {
         [Fact]
+        public async Task GetUserTest()
+        {
+
+            var response = await Client.GetAsync("user/user1@test.com");
+
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        }
+        [Fact]
         public async Task GivenCurrentPasswordAndNewPassword_ChangesPassword()
         {           
             var command = new ChangeUserPassword
@@ -34,15 +43,7 @@ namespace Passenger.Tests.EndToEnd.Controllers
             var response = await Client.PutAsync("account/password", payload);
             response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
-        [Fact]
-        public async Task GetUserTest()
-        {
-            
-            var response = await Client.GetAsync("user/user@gmail.com");
-
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
-
-        }
+        
         //protected static StringContent GetPayload(object data)
         //{
         //    var json = JsonConvert.SerializeObject(data);
