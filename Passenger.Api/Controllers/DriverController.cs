@@ -1,14 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Passenger.Infrastructure.Commands;
 using Passenger.Infrastructure.Commands.Drivers;
+using Passenger.Infrastructure.Services;
 
 namespace Passenger.Api.Controllers
 {
     public class DriverController : ApiControllerBase
     {
-        public DriverController(ICommandDispatcher commandDispatcher) : base(commandDispatcher)
+        private readonly IDriverService _driverService;
+
+        public DriverController(ICommandDispatcher commandDispatcher,
+            IDriverService driverService) : base(commandDispatcher)
         {
-            
+            _driverService = driverService;
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            var drivers = await _driverService.GetAllAsync();
+            return Json(drivers);
+
         }
 
         [HttpPost]
