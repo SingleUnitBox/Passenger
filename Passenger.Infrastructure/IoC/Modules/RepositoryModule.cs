@@ -19,7 +19,7 @@ namespace Passenger.Infrastructure.IoC.Modules
             builder.RegisterAssemblyTypes(assembly)
                 .Where(t => t.IsAssignableTo<IRepository>())
                 .AsImplementedInterfaces()
-                .InstancePerLifetimeScope();              
+                .InstancePerLifetimeScope();
         }
 
     }

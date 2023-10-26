@@ -11,6 +11,11 @@ namespace Passenger.Infrastructure.Repositories
     public class InMemoryDriverRepository : IDriverRepository
     {
         private static ISet<Driver> _drivers = new HashSet<Driver>();
+        //{
+        //    new Driver(new User(Guid.NewGuid(), "test", "test", "test", "test", "test")),
+        //    new Driver(new User(Guid.NewGuid(), "test1", "test1", "test1", "test1", "test1")),
+        //};
+        
         public async Task AddAsync(Driver driver)
         {
             _drivers.Add(driver);
