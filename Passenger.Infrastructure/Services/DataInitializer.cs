@@ -12,14 +12,17 @@ namespace Passenger.Infrastructure.Services
     {
         private readonly IUserService _userService;
         private readonly IDriverService _driverService;
+        private readonly IRouteService _routeService;
         private readonly ILogger<DataInitializer> _logger;
 
         public DataInitializer(IUserService userService,
             IDriverService driverService,
+            IRouteService routeService,
             ILogger<DataInitializer> logger)
         {
             _userService = userService;
             _driverService = driverService;
+            _routeService = routeService;
             _logger = logger;
         }
         public async Task SeedAsync()
@@ -34,6 +37,7 @@ namespace Passenger.Infrastructure.Services
                 var username = $"user{i}";
 
                 tasks.Add(_userService.RegisterAsync(userId, $"{username}@test.com", username, "secret", "user"));
+                //tasks.Add();
                 tasks.Add(_driverService.CreateAsync(userId).ContinueWith(task =>
                 {
                     if (task.Exception != null)
@@ -51,6 +55,12 @@ namespace Passenger.Infrastructure.Services
                 tasks.Add(_userService.RegisterAsync(userId, $"{username}@test.com", username, "secret", "admin"));
             }
 
+            for (var j = 1; j <= 5; j++)
+            {
+                var startNode = new Node($"StartStreet{j}", (double)j / 3, (double)j / 4);
+                var endNode = new Node($"EndStreet{j}", (double)j / 7, (double)j / 15);
+                tasks.Add(_routeService.CreateAsync(Route.Create(startNode, endNode)));
+            }
             await Task.WhenAll(tasks);
 
             _logger.LogTrace("Data has been initialized.");

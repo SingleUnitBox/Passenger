@@ -11,8 +11,9 @@ namespace Passenger.Infrastructure.DTO
     {
         public Guid UserId { get; set; }
         public string Name { get; set; }
+        public Vehicle Vehicle { get; set; }
         public DateTime UpdatedAt { get; set; }
-
+        public IEnumerable<RouteDto> Routes { get; set; }
 
     }
 }
