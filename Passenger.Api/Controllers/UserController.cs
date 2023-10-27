@@ -4,6 +4,7 @@ using Passenger.Infrastructure.Commands;
 using Passenger.Infrastructure.Commands.Users;
 using Passenger.Infrastructure.DTO;
 using Passenger.Infrastructure.Services;
+using System.Text.Json.Serialization;
 
 namespace Passenger.Api.Controllers
 {

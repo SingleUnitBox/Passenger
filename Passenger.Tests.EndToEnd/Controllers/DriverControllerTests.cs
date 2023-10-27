@@ -24,7 +24,7 @@ namespace Passenger.Tests.EndToEnd.Controllers
                 { 
                     Brand = "bmw",
                     Name = "z3",
-                    Seats = 4
+                    //Seats = 4
                 }
             };
 
