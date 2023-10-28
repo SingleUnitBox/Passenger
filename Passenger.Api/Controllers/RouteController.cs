@@ -19,5 +19,16 @@ namespace Passenger.Api.Controllers
             var routes = await _routeService.GetAllAsync();
             return Json(routes);
         }
+        [HttpGet]
+        [Route("{name}")]
+        public async Task<IActionResult> GetByNameAsync(string name)
+        {
+            var route = await _routeService.GetByNameAsync(name);
+            if (route == null)
+            {
+                return NotFound();
+            }
+            return Json(route);
+        }
     }
 }

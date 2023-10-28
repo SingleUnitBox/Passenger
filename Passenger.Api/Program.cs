@@ -1,10 +1,8 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Http.Json;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
+using Passenger.Api.Framework;
 using Passenger.Core.Repositories;
 using Passenger.Infrastructure.Extensions;
 using Passenger.Infrastructure.IoC;
@@ -61,7 +59,6 @@ builder.Host.ConfigureLogging(logging =>
 });
 
 
-
 var app = builder.Build();
 
 var generalSettings = builder.Configuration.GetSection("general").Get<GeneralSettings>();
@@ -81,7 +78,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseMyExceptionHandler();
 app.UseAuthentication();
 app.UseAuthorization();
 

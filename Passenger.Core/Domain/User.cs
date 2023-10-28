@@ -37,7 +37,7 @@ namespace Passenger.Core.Domain
         {
             if (string.IsNullOrEmpty(email))
             {
-                throw new Exception("Email cannot be empty");
+                throw new DomainException(ErrorCodes.InvalidEmail, "Email cannot be empty");
             }
             if (Email == email)
             {
@@ -50,7 +50,7 @@ namespace Passenger.Core.Domain
         {
             if (!_nameRegex.IsMatch(username))
             {
-                throw new Exception($"Username is invalid");
+                throw new DomainException(ErrorCodes.InvalidUsername, "Username is invalid");
             }
             UserName = username;
             UpdatedAt = DateTime.UtcNow;
@@ -59,15 +59,15 @@ namespace Passenger.Core.Domain
         {
             if (string.IsNullOrEmpty(password))
             {
-                throw new Exception("Password cannot be empty");
+                throw new DomainException(ErrorCodes.InvalidPassword, "Password cannot be empty");
             }
             if (password.Length < 4)
             {
-                throw new Exception("Password is too short. It has to be at least 4 characters long.");
+                throw new DomainException(ErrorCodes.InvalidPassword,"Password is too short. It has to be at least 4 characters long.");
             }
             if (password.Length > 100)
             {
-                throw new Exception("Password is too long. It has to be no longer than 100 characters.");
+                throw new DomainException(ErrorCodes.InvalidPassword, "Password is too long. It has to be no longer than 100 characters.");
             }
             Password = password;
             UpdatedAt = DateTime.UtcNow;

@@ -11,6 +11,7 @@ namespace Passenger.Infrastructure.Services
     public interface IRouteService : IService
     {
         Task<RouteDto> GetAsync(Guid routeId);
+        Task<RouteDto> GetByNameAsync(string name);
         Task<IEnumerable<RouteDto>> GetAllAsync();
         Task CreateAsync(Route route);
     }

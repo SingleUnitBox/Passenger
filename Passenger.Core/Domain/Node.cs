@@ -18,5 +18,7 @@ namespace Passenger.Core.Domain
             Longitude = longitude;
             Latitude = latitude;
         }
+        public static Node Create(string address, double longitude, double latitude)
+            => new Node(address, longitude, latitude);
     }
 }

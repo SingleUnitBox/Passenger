@@ -15,8 +15,8 @@ namespace Passenger.Infrastructure.Repositories
         //    new Driver(new User(Guid.NewGuid(), "test", "test", "test", "test", "test")),
         //    new Driver(new User(Guid.NewGuid(), "test1", "test1", "test1", "test1", "test1")),
         //};
-        
-        public async Task AddAsync(Driver driver)
+
+    public async Task AddAsync(Driver driver)
         {
             _drivers.Add(driver);
             await Task.CompletedTask;
@@ -29,6 +29,12 @@ namespace Passenger.Infrastructure.Repositories
 
         public async Task UpdateAsync(Driver driver)
         {
+            await Task.CompletedTask;
+        }
+
+        public async Task DeleteAsync(Driver driver)
+        {
+            _drivers.Remove(driver);
             await Task.CompletedTask;
         }
     }
