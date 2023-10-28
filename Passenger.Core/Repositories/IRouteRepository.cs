@@ -10,6 +10,7 @@ namespace Passenger.Core.Repositories
     public interface IRouteRepository : IRepository
     {
         Task<Route> GetAsync(Guid routeId);
+        Task<Route> GetByNameAsync(string name);
         Task AddAsync(Route route);
         Task UpdateAsync(Route route);
         Task<IEnumerable<Route>> GetAllAsync();

@@ -25,6 +25,9 @@ namespace Passenger.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
+        public async Task<Route> GetByNameAsync(string name)
+            => await Task.FromResult(_routes.FirstOrDefault(r => r.Name == name));
+
         public async Task UpdateAsync(Route route)
         {
             throw new NotImplementedException();

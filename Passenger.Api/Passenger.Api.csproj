@@ -12,6 +12,7 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.23" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
@@ -21,5 +22,9 @@
 
 	<ItemGroup>
 		<InternalsVisibleTo Include="Passenger.Tests.EndToEnd" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Framework\Extensions\" />
 	</ItemGroup>
 </Project>

@@ -19,4 +19,12 @@
     <ProjectReference Include="..\Passenger.Core\Passenger.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\czlom\source\repos\Passenger\Passenger.Infrastructure\Commands\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\czlom\source\repos\Passenger\Passenger.Infrastructure\Commands\.editorconfig" />
+  </ItemGroup>
+
 </Project>

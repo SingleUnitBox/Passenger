@@ -35,5 +35,12 @@ namespace Passenger.Infrastructure.Services
         {
             throw new NotImplementedException();
         }
+
+        public async Task<RouteDto> GetByNameAsync(string name)
+        {
+            var route = await _routeRepository.GetByNameAsync(name);
+            return _mapper.Map<Route, RouteDto>(route);
+        }
+
     }
 }

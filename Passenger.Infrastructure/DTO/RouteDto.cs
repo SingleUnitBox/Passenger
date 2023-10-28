@@ -10,7 +10,9 @@ namespace Passenger.Infrastructure.DTO
     public class RouteDto
     {
         public Guid Id { get; set; }
+        public string Name { get; set; }
         public Node StartNode { get; set; }
         public Node EndNode { get; set; }
+        public double Distance { get; set; }
     }
 }

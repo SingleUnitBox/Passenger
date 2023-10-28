@@ -19,7 +19,7 @@ namespace Passenger.Api.Controllers
         public async Task<IActionResult> PostAsync([FromBody] LoginUser loginUserCommand)
         {
             loginUserCommand.TokenId = Guid.NewGuid();
-            await _commandDispatcher.DispatchAsync(loginUserCommand);
+            await DispatchAsync(loginUserCommand);
             var jwt = _memoryCache.GetJwt(loginUserCommand.TokenId);
 
             return Json(jwt);

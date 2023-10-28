@@ -38,9 +38,9 @@ namespace Passenger.Api.Controllers
         [HttpPost("")]
         public async Task<IActionResult> PostAsync([FromBody] CreateUser command)
         {
-            await _commandDispatcher.DispatchAsync(command);
+            await DispatchAsync(command);
 
-            return Created($"users/{command.Email}", new object());
+            return Created($"users/{command.Email}", null);
         }
     }
 }
