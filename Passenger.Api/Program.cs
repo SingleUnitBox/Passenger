@@ -2,6 +2,8 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using NLog;
+using NLog.Web;
 using Passenger.Api.Framework;
 using Passenger.Core.Repositories;
 using Passenger.Infrastructure.Extensions;
@@ -13,11 +15,16 @@ using Passenger.Infrastructure.Services;
 using Passenger.Infrastructure.Settings;
 using System.Text;
 
+
+var logger = NLog.LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
+logger.Debug("init main");
+
 IConfiguration configuration = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json")
     .Build();
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 // Add services to the container.
 builder.Services.AddControllers()
@@ -44,19 +51,20 @@ builder.Services.AddAuthentication(options =>
 });
 builder.Services.AddAuthorization(x => x.AddPolicy("admin", p => p.RequireRole("admin")));
 builder.Services.AddMemoryCache();
-//builder.Services.AddScoped<IUserRepository, InMemoryUserRepository>();
-//builder.Services.AddScoped<IUserService, UserService>();
-//builder.Services.AddSingleton(AutomapperConfig.Initialize());
 
+//autofac
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(
     builder => builder.RegisterModule(new ContainerModule(configuration)));
 
+//logger
 builder.Host.ConfigureLogging(logging =>
 {
     logging.ClearProviders();
     logging.AddConsole();
-});
+})
+.UseNLog();
+
 
 
 var app = builder.Build();
@@ -78,6 +86,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+//my middleware for handling exceptions
 app.UseMyExceptionHandler();
 app.UseAuthentication();
 app.UseAuthorization();
@@ -85,4 +94,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+
 

@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using Passenger.Infrastructure.Commands.Drivers;
+using Passenger.Infrastructure.Commands.Drivers.Models;
 using Passenger.Infrastructure.Commands.Users;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace Passenger.Tests.EndToEnd.Controllers
             {
                 //UserId = Guid.Parse("bfbe16a5-164d-4a7c-8506-d51992f74be8"),
                 UserId = Guid.NewGuid(),
-                Vehicle = new CreateDriver.DriverVehicle()
+                Vehicle = new DriverVehicle()
                 { 
                     Brand = "bmw",
                     Name = "z3",

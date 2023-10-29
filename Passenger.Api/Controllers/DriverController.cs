@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NLog;
 using Passenger.Infrastructure.Commands;
 using Passenger.Infrastructure.Commands.Drivers;
 using Passenger.Infrastructure.Services;
@@ -7,6 +8,7 @@ namespace Passenger.Api.Controllers
 {
     public class DriverController : ApiControllerBase
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly IDriverService _driverService;
 
         public DriverController(ICommandDispatcher commandDispatcher,
@@ -17,6 +19,7 @@ namespace Passenger.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
+            Logger.Info("Fetching drivers.");
             //throw new Exception("upssss");
             var drivers = await _driverService.GetAllAsync();
             return Json(drivers);
